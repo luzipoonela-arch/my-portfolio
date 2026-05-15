@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onela Luzipho | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #1a1a1a;
+      --accent: #00ff88;
+      --accent2: #00ccff;
+      --text: #f0f0f0;
+      --muted: #888;
+      --border: #222;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,136,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,204,255,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { max-width: 780px; }
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 .highlight {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--accent);
+    }
+    .hero-bio {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 4px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      font-weight: 700;
+    }
+    .btn-primary:hover { background: #00e07a; transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 3rem;
+      height: 1px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 960px;
+    }
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .about-text p strong { color: var(--text); font-weight: 600; }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .stat-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      max-width: 960px;
+    }
+    .skill-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .skill-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem; }
+    .skill-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* PROJECTS */
+    #projects { background: var(--bg2); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 960px;
+    }
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .project-card:hover { border-color: var(--border); transform: translateY(-4px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-tag {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: 3px;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .project-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; }
+    .project-coming { font-size: 0.8rem; color: var(--muted); font-family: 'Space Mono', monospace; }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-inner {
+      max-width: 640px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 3rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-link-icon {
+      width: 40px; height: 40px;
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-link-text strong { display: block; font-size: 0.95rem; margin-bottom: 0.15rem; }
+    .contact-link-text span { font-size: 0.8rem; color: var(--muted); font-family: 'Space Mono', monospace; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+    footer span { color: var(--accent); }
+
+    /* FADE IN ANIMATION */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * {
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-tag    { animation-delay: 0.1s; }
+    .hero h1     { animation-delay: 0.2s; }
+    .hero-bio    { animation-delay: 0.35s; }
+    .hero-buttons{ animation-delay: 0.5s; }
+
+    @media (max-width: 720px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-inner { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">onela.dev</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-tag">Portfolio</div>
+      <h1>Onela<br /><span class="highlight">Luzipho</span></h1>
+      <p class="hero-bio">I'm a beginner coder building my first projects — learning one line of code at a time and turning ideas into things that live on the internet.</p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">View My Work →</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About me</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Hey! I'm <strong>Onela Luzipho</strong>, a beginner coder who's just getting started on the exciting journey of web development.</p>
+        <p>I'm learning how to build websites and web apps from the ground up — from writing my first lines of HTML to pushing code to GitHub for the world to see.</p>
+        <p>Every project I build teaches me something new. I'm here to grow, experiment, and eventually create things that make a difference.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">01</div>
+          <div class="stat-label">First project live</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Things left to learn</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Motivated to build</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">ZA</div>
+          <div class="stat-label">Based in South Africa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">What I know</div>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">HTML</div>
+        <div class="skill-desc">Building the structure and content of web pages.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-name">CSS</div>
+        <div class="skill-desc">Styling pages with colors, layouts, and animations.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">JavaScript</div>
+        <div class="skill-desc">Making pages interactive and dynamic — learning actively.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐙</div>
+        <div class="skill-name">Git & GitHub</div>
+        <div class="skill-desc">Tracking code changes and publishing projects online.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">My work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-tag">HTML / CSS</div>
+        <div class="project-title">This Portfolio</div>
+        <div class="project-desc">My very first web project — a personal portfolio site built to showcase who I am and what I'm learning. Hosted on GitHub Pages.</div>
+        <div class="project-coming">✦ live now</div>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Coming soon</div>
+        <div class="project-title">Next Project</div>
+        <div class="project-desc">Currently learning and building — check back soon for new projects as I grow my skills.</div>
+        <div class="project-coming">✦ in progress</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Say hello</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-inner">
+      <p style="color: var(--muted); line-height: 1.8; margin-bottom: 0.5rem;">I'm always open to connecting — whether you want to collaborate, give feedback on my projects, or just say hi.</p>
+      <div class="contact-links">
+        <a href="mailto:luzipoonela@gmail.com" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          <div class="contact-link-text">
+            <strong>Email</strong>
+            <span>luzipoonela@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://github.com/luzipoonela" target="_blank" class="contact-link">
+          <div class="contact-link-icon">⌥</div>
+          <div class="contact-link-text">
+            <strong>GitHub</strong>
+            <span>github.com/luzipoonela</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    Built by <span>Onela Luzipho</span> · 2025 · Hosted on GitHub Pages
+  </footer>
+
+</body>
+</html>
